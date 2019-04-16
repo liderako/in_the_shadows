@@ -7,7 +7,11 @@
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
+          <e p="CameraController.cs" t="Include" />
+          <e p="checkpoint.cs" t="Include" />
           <e p="LoadScene.cs" t="Include" />
+          <e p="LoadSceneScript.cs" t="Include" />
+          <e p="RotateController.cs" t="Include" />
         </e>
       </e>
       <e p="in_the_shadows.sln" t="IncludeFlat" />

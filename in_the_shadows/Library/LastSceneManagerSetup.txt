@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/TesterMode.unity
+- path: Assets/Scenes/tea.unity
   isLoaded: 1
   isActive: 1
