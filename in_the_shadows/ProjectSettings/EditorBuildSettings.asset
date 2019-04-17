@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/tea.unity
     guid: 5565ebef937a54106a73c1a8cd1466aa
+  - enabled: 1
+    path: Assets/Scenes/elephant.unity
+    guid: 742a67155abbb4d0eb7b89efc7710d0b
   m_configObjects: {}

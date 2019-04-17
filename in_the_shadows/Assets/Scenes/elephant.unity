@@ -343,15 +343,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 400000, guid: 2cb10300605c14a7fbf1f9811e88afab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -3.9256032
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2cb10300605c14a7fbf1f9811e88afab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.9
+      value: 9.982557
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2cb10300605c14a7fbf1f9811e88afab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 29.9
+      value: 29.662052
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2cb10300605c14a7fbf1f9811e88afab, type: 3}
       propertyPath: m_LocalRotation.x
@@ -359,11 +359,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2cb10300605c14a7fbf1f9811e88afab, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2cb10300605c14a7fbf1f9811e88afab, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 2cb10300605c14a7fbf1f9811e88afab, type: 3}
       propertyPath: m_LocalRotation.w
@@ -414,15 +414,16 @@ MonoBehaviour:
   speedMove: 1.5
   speedRotation: 10
   endRotation:
-  - {x: 1.8, y: 139, z: 359}
-  - {x: 2, y: 174, z: 0.1}
-  - {x: 355, y: 340, z: 0.1}
-  - {x: 360, y: 357, z: 359.9}
+  - {x: 81.3, y: 228, z: 265}
+  - {x: 81.8, y: 241, z: 265}
+  - {x: 86.9, y: 152.5, z: 0}
+  - {x: 87.2, y: 188, z: 0}
   endPosition: []
   textVictory: {fileID: 591808553}
   isDoneP: 0
   isDoneR: 0
   typeScene: elephant
+  victory: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1538838225
 GameObject:
   m_ObjectHideFlags: 0

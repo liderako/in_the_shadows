@@ -17,7 +17,13 @@ public class RotateController : MonoBehaviour
 
     public bool isDoneR;
     public string typeScene;
-    
+    public Quaternion victory;
+
+    private void Start()
+    {
+        victory = Quaternion.Euler(86, 54, 78);
+    }
+
     // Update is called once per frame
     private void FixedUpdate()
     {
@@ -26,6 +32,7 @@ public class RotateController : MonoBehaviour
             controller();
         }
         isTerminate();
+//        Debug.Log(transform.eulerAngles);
     }
 
     private void controller()
@@ -81,29 +88,22 @@ public class RotateController : MonoBehaviour
 
     public void isTerminate()
     {
-//        Debug.Log("_START_");
-//        Debug.Log("X " + transform.eulerAngles.x);
-//        Debug.Log("Y " + transform.eulerAngles.y);
-//        Debug.Log("__");
-        int i = 0;
-        while (i < endRotation.Count)
+        float angle = Quaternion.Angle(transform.rotation, victory);
+        if (angle < 10)
         {
-//            Debug.Log(i);
-//            Debug.Log(transform.eulerAngles.x >= endRotation[i].x);
-//            Debug.Log(transform.eulerAngles.y >= endRotation[i].y);
-//            Debug.Log(transform.eulerAngles.x <= endRotation[i + 1].x);
-//            Debug.Log(transform.eulerAngles.y <= endRotation[i + 1].y);
-//            Debug.Log("_________");
-//            Debug.Log(endRotation[i+1].x);
-            if (transform.eulerAngles.x >= endRotation[i].x && transform.eulerAngles.y >= endRotation[i].y &&
-                transform.eulerAngles.x <= endRotation[i + 1].x && transform.eulerAngles.y <= endRotation[i + 1].y)
-            {
-                isDoneR = true;
-                textVictory.SetActive(true);
-                PlayerPrefs.SetInt(typeScene, 2);
-            }
-//            Debug.Log("??????????????????????");
-            i += 2;
+            Debug.Log("Victory");
         }
+//        int i = 0;
+//        while (i < endRotation.Count)
+//        {
+//            if (transform.eulerAngles.x >= endRotation[i].x && transform.eulerAngles.y >= endRotation[i].y &&
+//                transform.eulerAngles.x <= endRotation[i + 1].x && transform.eulerAngles.y <= endRotation[i + 1].y)
+//            {
+//                isDoneR = true;
+//                textVictory.SetActive(true);
+//                PlayerPrefs.SetInt(typeScene, 2);
+//            }
+//            i += 2;
+//        }
     }
 }
