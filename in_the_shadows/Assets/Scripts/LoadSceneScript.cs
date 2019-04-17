@@ -27,7 +27,11 @@ public class LoadSceneScript : MonoBehaviour
         else if (PlayerPrefs.GetInt(typeScene) == 2)
         {
             isDone = true;
-            PlayerPrefs.SetInt(load.typeScene, 1);
+            if (PlayerPrefs.GetInt(load.typeScene) == 0)
+            {
+                PlayerPrefs.SetInt(load.typeScene, 1);
+            }
+
             load.isOpen = true;
         }
 
@@ -35,7 +39,6 @@ public class LoadSceneScript : MonoBehaviour
         {
             PlayerPrefs.SetInt(typeScene, 1);
         }
-        Debug.Log(typeScene + " " + PlayerPrefs.GetInt(typeScene));
     }
 
     private void OnMouseDown()
@@ -62,7 +65,6 @@ public class LoadSceneScript : MonoBehaviour
         {
             ChangeColor(0);
         }
-        Debug.Log("____________");
     }
 
     private void ChangeColor(int i)
@@ -70,10 +72,5 @@ public class LoadSceneScript : MonoBehaviour
         Material[] materials = meshrender.materials;
         materials[0] = statusLevel[i];
         meshrender.materials = materials;
-        //Debug.Log(materials[0].name);
-        foreach (var x in materials)
-        {
-            Debug.Log(x.name);
-        }
     }
 }

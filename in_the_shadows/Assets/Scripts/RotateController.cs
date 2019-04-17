@@ -8,31 +8,39 @@ public class RotateController : MonoBehaviour
     public bool isVertical;
     public bool isHorizontal;
     public bool isMove;
+    public bool isActive;
     public float speedMove;
     public float speedRotation;
     public List<Vector3> endRotation;
-    public List<Vector3> endPosition;
     public GameObject textVictory;
     public bool isDoneP;
 
     public bool isDoneR;
     public string typeScene;
-    public Quaternion victory;
-
-    private void Start()
-    {
-        victory = Quaternion.Euler(86, 54, 78);
-    }
+    public GameObject gm;
+    public GameObject neighbor;
+    public bool isLeft;
 
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (!isDoneR)
+        if (isMove)
         {
-            controller();
+            if ((!isDoneP || !isDoneR) && isActive)
+            {
+                _isTerminateMove();
+                controller();
+            }
         }
-        isTerminate();
-//        Debug.Log(transform.eulerAngles);
+        else
+        {
+            if (!isDoneR && isActive)
+            {
+                controller();
+            }
+        }
+        _isTerminateRotate();
+        isVictory();
     }
 
     private void controller()
@@ -45,20 +53,15 @@ public class RotateController : MonoBehaviour
                 {
                     if (Input.GetKey(KeyCode.Y) && !Input.GetKey(KeyCode.LeftCommand) && isVertical)
                     {
-                        transform.Rotate (Input.GetAxis ("Mouse Y") * speedRotation, 0, 0, Space.World); 
-                        if (transform.localEulerAngles.x > 360)
-                        {
-                            transform.rotation = Quaternion.Euler(360 - transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z);
-                        }
-                        else if (transform.localEulerAngles.x < 0)
-                        {
-                            transform.rotation = Quaternion.Euler(transform.localEulerAngles.x + 360, transform.localEulerAngles.y, transform.localEulerAngles.z);
-                        }
+                        transform.Rotate (Input.GetAxis ("Mouse Y") * speedRotation, 0, 0, Space.World);
                     }
                     else if (Input.GetKey(KeyCode.LeftCommand) && !Input.GetKey(KeyCode.Y) && isMove)
                     {
-                        transform.position = new Vector3(transform.position.x, transform.position.y + Input.GetAxis("Mouse Y") * speedMove,
-                            transform.position.z);
+                        transform.position = new Vector3(
+                            transform.position.x,
+                            transform.position.y + Input.GetAxis("Mouse Y") * speedMove,
+                            transform.position.z
+                            );
                     }
                 }
                 else if (Input.GetAxis("Mouse X") != 0)
@@ -66,44 +69,77 @@ public class RotateController : MonoBehaviour
                     if (Input.GetKey(KeyCode.X) && isHorizontal && !Input.GetKey(KeyCode.LeftControl))
                     {
                         transform.Rotate (0, -Input.GetAxis ("Mouse X") * speedRotation, 0, Space.World);
-                        if (transform.localEulerAngles.y > 360)
-                        {
-                            transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, 360 - transform.localEulerAngles.y, transform.localEulerAngles.z);
-                        }
-                        else if (transform.localEulerAngles.y < 0)
-                        {
-                            transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y + 360, transform.localEulerAngles.z);
-                        }
                     }
                     else if (Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.X) && isMove)
                     {
                         transform.position = new Vector3(transform.position.x + (Input.GetAxis("Mouse X") * speedMove),
                             transform.position.y,
-                            transform.position.z);
+                            transform.position.z
+                            );
                     }
                 }
             }
         }
     }
 
-    public void isTerminate()
+    private void isVictory()
     {
-        float angle = Quaternion.Angle(transform.rotation, victory);
-        if (angle < 10)
+        if (isDoneR)
         {
-            Debug.Log("Victory");
+            if (isMove)
+            {
+                if (isDoneP)
+                {
+                    if (isLeft)
+                    {
+                        GameManager.gm.isLeft = true;
+                    }
+                    else
+                    {
+                        GameManager.gm.isRight = true;
+                    }
+                }
+            }
+            else
+            {
+                textVictory.SetActive(true);
+                PlayerPrefs.SetInt(typeScene, 2);
+            }
         }
-//        int i = 0;
-//        while (i < endRotation.Count)
-//        {
-//            if (transform.eulerAngles.x >= endRotation[i].x && transform.eulerAngles.y >= endRotation[i].y &&
-//                transform.eulerAngles.x <= endRotation[i + 1].x && transform.eulerAngles.y <= endRotation[i + 1].y)
-//            {
-//                isDoneR = true;
-//                textVictory.SetActive(true);
-//                PlayerPrefs.SetInt(typeScene, 2);
-//            }
-//            i += 2;
-//        }
+    }
+
+    private void _isTerminateRotate()
+    {
+        foreach (var rot in endRotation)
+        {
+            float angle = Quaternion.Angle(transform.rotation, Quaternion.Euler(rot.x, rot.y, rot.z));
+            if (angle < 10)
+            {
+                isDoneR = true;
+            }
+        }
+    }
+
+    private void _isTerminateMove()
+    {
+        if (isLeft)
+        {
+            if (transform.position.x + 11 < neighbor.transform.position.x)
+            {
+                isDoneP = true;
+            }
+        }
+        else
+        {
+            if (transform.position.x - 11 > neighbor.transform.position.x)
+            {
+                isDoneP = true;
+            }
+        }
+    }
+    
+    private void OnMouseDown()
+    {
+        gm.SendMessage("ChangeActive", gameObject);
     }
 }
