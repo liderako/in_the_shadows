@@ -10,9 +10,25 @@ public class RotateController : MonoBehaviour
     public bool isMove;
     public float speedMove;
     public float speedRotation;
+    public List<Vector3> endRotation;
+    public List<Vector3> endPosition;
+    public GameObject textVictory;
+    public bool isDoneP;
+
+    public bool isDoneR;
+    public string typeScene;
     
     // Update is called once per frame
     private void FixedUpdate()
+    {
+        if (!isDoneR)
+        {
+            controller();
+        }
+        isTerminate();
+    }
+
+    private void controller()
     {
         if (Input.GetMouseButton(0))
         {
@@ -22,10 +38,7 @@ public class RotateController : MonoBehaviour
                 {
                     if (Input.GetKey(KeyCode.Y) && !Input.GetKey(KeyCode.LeftCommand) && isVertical)
                     {
-                        transform.Rotate (Input.GetAxis ("Mouse Y") * speedRotation, 0, 0, Space.Self); 
-                        //transform.rotation = Quaternion.Euler(transform.localEulerAngles.x + Input.GetAxis("Mouse Y") * speedRotation, transform.localEulerAngles.y, transform.localEulerAngles.z);
-                        //transform.localRotation.eulerAngles.x += Input.GetAxis("Mouse Y") * speedRotation;
-                        //transform.RotateAround(Vector3.zero, Vector3.right,  Input.GetAxis("Mouse Y") * speedRotation);
+                        transform.Rotate (Input.GetAxis ("Mouse Y") * speedRotation, 0, 0, Space.World); 
                         if (transform.localEulerAngles.x > 360)
                         {
                             transform.rotation = Quaternion.Euler(360 - transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z);
@@ -34,7 +47,6 @@ public class RotateController : MonoBehaviour
                         {
                             transform.rotation = Quaternion.Euler(transform.localEulerAngles.x + 360, transform.localEulerAngles.y, transform.localEulerAngles.z);
                         }
-                        Debug.Log("rotation x" +  transform.localEulerAngles); 
                     }
                     else if (Input.GetKey(KeyCode.LeftCommand) && !Input.GetKey(KeyCode.Y) && isMove)
                     {
@@ -46,7 +58,7 @@ public class RotateController : MonoBehaviour
                 {
                     if (Input.GetKey(KeyCode.X) && isHorizontal && !Input.GetKey(KeyCode.LeftControl))
                     {
-                        transform.Rotate (0, -Input.GetAxis ("Mouse X") * speedRotation, 0, Space.Self);
+                        transform.Rotate (0, -Input.GetAxis ("Mouse X") * speedRotation, 0, Space.World);
                         if (transform.localEulerAngles.y > 360)
                         {
                             transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, 360 - transform.localEulerAngles.y, transform.localEulerAngles.z);
@@ -55,8 +67,6 @@ public class RotateController : MonoBehaviour
                         {
                             transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y + 360, transform.localEulerAngles.z);
                         }
-                        Debug.Log(transform.localEulerAngles);
-                        Debug.Log(transform.localRotation);
                     }
                     else if (Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.X) && isMove)
                     {
@@ -66,6 +76,34 @@ public class RotateController : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    public void isTerminate()
+    {
+//        Debug.Log("_START_");
+//        Debug.Log("X " + transform.eulerAngles.x);
+//        Debug.Log("Y " + transform.eulerAngles.y);
+//        Debug.Log("__");
+        int i = 0;
+        while (i < endRotation.Count)
+        {
+//            Debug.Log(i);
+//            Debug.Log(transform.eulerAngles.x >= endRotation[i].x);
+//            Debug.Log(transform.eulerAngles.y >= endRotation[i].y);
+//            Debug.Log(transform.eulerAngles.x <= endRotation[i + 1].x);
+//            Debug.Log(transform.eulerAngles.y <= endRotation[i + 1].y);
+//            Debug.Log("_________");
+//            Debug.Log(endRotation[i+1].x);
+            if (transform.eulerAngles.x >= endRotation[i].x && transform.eulerAngles.y >= endRotation[i].y &&
+                transform.eulerAngles.x <= endRotation[i + 1].x && transform.eulerAngles.y <= endRotation[i + 1].y)
+            {
+                isDoneR = true;
+                textVictory.SetActive(true);
+                PlayerPrefs.SetInt(typeScene, 2);
+            }
+//            Debug.Log("??????????????????????");
+            i += 2;
         }
     }
 }

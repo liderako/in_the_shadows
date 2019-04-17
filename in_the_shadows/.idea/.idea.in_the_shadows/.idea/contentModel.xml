@@ -11,6 +11,7 @@
           <e p="checkpoint.cs" t="Include" />
           <e p="LoadScene.cs" t="Include" />
           <e p="LoadSceneScript.cs" t="Include" />
+          <e p="Reset.cs" t="Include" />
           <e p="RotateController.cs" t="Include" />
         </e>
       </e>

@@ -58,6 +58,7 @@
     <Compile Include="Assets\Scripts\checkpoint.cs" />
     <Compile Include="Assets\Scripts\LoadScene.cs" />
     <Compile Include="Assets\Scripts\LoadSceneScript.cs" />
+    <Compile Include="Assets\Scripts\Reset.cs" />
     <Compile Include="Assets\Scripts\RotateController.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Volumes/Storage/goinfre/asvirido/in_the_shadows/in_the_shadows/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
